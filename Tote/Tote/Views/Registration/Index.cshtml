@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Tote.Models.Sport>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/registrationIndex.css" rel="stylesheet" />
+    <title>Index</title>
+</head>
+<body>
+    <div id="Registration">
+        <table >
+            <tr>
+                <td>
+                    <input type="button" class="RegButton" value="Sign In" />
+                </td>
+                <td>
+                    <input type="button" class="RegButton" value="Sign Up" />
+                </td>
+            </tr>
+        </table>
+    </div>
+    <table>
+        <th>
+            Sport
+        </th>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <input type="button" id=@item.Id class="SportButton" value=@item.Name />
+                </td>
+            </tr>
+        }
+    </table>
+    <img src="~/Content/bet.jpg" id="betPaint" />
+</body>
+</html>
