@@ -20,5 +20,11 @@ namespace Tote.Controllers
         {
             return View(sports);
         }
+
+        public ActionResult Messages()
+        {
+            Message message = new Message { Text="Message Text"};
+            return View(message);
+        }
     }
 }
