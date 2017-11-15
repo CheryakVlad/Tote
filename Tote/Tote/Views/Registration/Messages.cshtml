@@ -1,5 +1,4 @@
-﻿@model Tote.Models.Message
-@{
+﻿@{
     Layout = null;
 }
 
@@ -11,8 +10,8 @@
     <title>Messages</title>
 </head>
 <body>
-    <div> 
-        <label value=@Model.Text/>
-    </div>
+    <div style="position: absolute; top: 50%; left:50%">
+    <label>@ViewBag.Message</label>
+</div>
 </body>
 </html>

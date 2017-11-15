@@ -1,12 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using Tote.Interfaces;
 
 namespace Tote.Models
 {
-    public class Message
-    {
-        public string Text { get; set; }
+    public class Message:IMessage
+    {     
+        
+        public string Send()
+        {
+            return "Interface Message Text";
+        }
     }
 }

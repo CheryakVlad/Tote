@@ -44,3 +44,15 @@ D:\Repo\Tote\Tote\bin\System.Web.Mvc.xml
 D:\Repo\Tote\Tote\obj\Debug\Tote.csprojResolveAssemblyReference.cache
 D:\Repo\Tote\Tote\obj\Debug\Tote.dll
 D:\Repo\Tote\Tote\obj\Debug\Tote.pdb
+D:\Repo\Tote\Tote\bin\Microsoft.Practices.ServiceLocation.dll
+D:\Repo\Tote\Tote\bin\StructureMap.dll
+D:\Repo\Tote\Tote\bin\StructureMap.Net4.dll
+D:\Repo\Tote\Tote\bin\StructureMap.Web.dll
+D:\Repo\Tote\Tote\bin\WebActivatorEx.dll
+D:\Repo\Tote\Tote\bin\Microsoft.Practices.ServiceLocation.pdb
+D:\Repo\Tote\Tote\bin\Microsoft.Practices.ServiceLocation.xml
+D:\Repo\Tote\Tote\bin\StructureMap.pdb
+D:\Repo\Tote\Tote\bin\StructureMap.xml
+D:\Repo\Tote\Tote\bin\StructureMap.Net4.pdb
+D:\Repo\Tote\Tote\bin\StructureMap.Web.pdb
+D:\Repo\Tote\Tote\bin\StructureMap.Web.xml
