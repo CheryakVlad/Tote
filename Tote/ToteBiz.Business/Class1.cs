@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tote.Interfaces
+namespace ToteBiz.Business
 {
-    public interface IMessage
+    public class Class1
     {
-        string Send(string message);
     }
 }

@@ -1,0 +1,5 @@
+D:\Repo\Tote\ToteBiz.Business\bin\Debug\ToteBiz.Business.dll
+D:\Repo\Tote\ToteBiz.Business\bin\Debug\ToteBiz.Business.pdb
+D:\Repo\Tote\ToteBiz.Business\obj\Debug\ToteBiz.Business.csprojResolveAssemblyReference.cache
+D:\Repo\Tote\ToteBiz.Business\obj\Debug\ToteBiz.Business.dll
+D:\Repo\Tote\ToteBiz.Business\obj\Debug\ToteBiz.Business.pdb

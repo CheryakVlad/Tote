@@ -6,9 +6,9 @@ namespace Tote.Models
     public class Message:IMessage
     {     
         
-        public string Send()
+        public string Send(string message)
         {
-            return "Interface Message Text";
+            return "Error "+message;
         }
     }
 }

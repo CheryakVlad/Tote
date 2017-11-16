@@ -56,3 +56,7 @@ D:\Repo\Tote\Tote\bin\StructureMap.xml
 D:\Repo\Tote\Tote\bin\StructureMap.Net4.pdb
 D:\Repo\Tote\Tote\bin\StructureMap.Web.pdb
 D:\Repo\Tote\Tote\bin\StructureMap.Web.xml
+D:\Repo\Tote\Tote\bin\log4net.dll
+D:\Repo\Tote\Tote\bin\log4net.xml
+D:\Repo\Tote\Tote\bin\ToteBiz.Business.dll
+D:\Repo\Tote\Tote\bin\ToteBiz.Business.pdb

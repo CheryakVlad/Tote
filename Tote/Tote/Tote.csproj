@@ -43,6 +43,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -158,6 +162,7 @@
     </Compile>
     <Compile Include="Interfaces\IMessage.cs" />
     <Compile Include="Models\Country.cs" />
+    <Compile Include="Models\Logger.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\Sport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -170,6 +175,8 @@
     </Content>
     <Content Include="Views\Registration\Index.cshtml" />
     <Content Include="Views\Registration\Messages.cshtml" />
+    <Content Include="log4netConfiguration.config" />
+    <Content Include="Views\Registration\Register.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -179,6 +186,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ToteBiz.Business\ToteBiz.Business.csproj">
+      <Project>{c4777cce-bd39-42d9-918d-d08ab3e288f0}</Project>
+      <Name>ToteBiz.Business</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
