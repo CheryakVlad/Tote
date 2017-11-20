@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using ToteBiz.Business.Providers;
 using ToteBiz.Business.Models;
@@ -81,11 +79,7 @@ namespace Tote.Controllers
             return View(ratesList);
         }
 
-        public ActionResult NavigationPartial()
-        {
-            return PartialView();
-        }
-    
+            
         public ViewResult List(int? SportId,int? TournamentId=null)
         {
             
