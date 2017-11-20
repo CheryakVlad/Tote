@@ -3,3 +3,11 @@ D:\Repo\Tote\ToteBiz.Business\bin\Debug\ToteBiz.Business.pdb
 D:\Repo\Tote\ToteBiz.Business\obj\Debug\ToteBiz.Business.csprojResolveAssemblyReference.cache
 D:\Repo\Tote\ToteBiz.Business\obj\Debug\ToteBiz.Business.dll
 D:\Repo\Tote\ToteBiz.Business\obj\Debug\ToteBiz.Business.pdb
+D:\Repo\Tote\ToteBiz.Business\bin\Debug\AutoMapper.dll
+D:\Repo\Tote\ToteBiz.Business\bin\Debug\Data.dll
+D:\Repo\Tote\ToteBiz.Business\bin\Debug\Data.pdb
+D:\Repo\Tote\ToteBiz.Business\bin\Debug\AutoMapper.xml
+D:\Repo\Tote\ToteBiz.Business\bin\Debug\Common.dll
+D:\Repo\Tote\ToteBiz.Business\bin\Debug\Ninject.dll
+D:\Repo\Tote\ToteBiz.Business\bin\Debug\Common.pdb
+D:\Repo\Tote\ToteBiz.Business\bin\Debug\Ninject.xml

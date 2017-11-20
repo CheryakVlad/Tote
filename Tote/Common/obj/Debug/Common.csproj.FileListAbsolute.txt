@@ -1,0 +1,5 @@
+D:\Repo\Tote\Common\bin\Debug\Common.dll
+D:\Repo\Tote\Common\bin\Debug\Common.pdb
+D:\Repo\Tote\Common\obj\Debug\Common.csprojResolveAssemblyReference.cache
+D:\Repo\Tote\Common\obj\Debug\Common.dll
+D:\Repo\Tote\Common\obj\Debug\Common.pdb

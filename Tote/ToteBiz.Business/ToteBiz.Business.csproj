@@ -30,9 +30,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.2.1\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,11 +50,44 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Models\CommandBusiness.cs" />
+    <Compile Include="Models\MatchBusiness.cs" />
+    <Compile Include="Models\RateBusiness.cs" />
+    <Compile Include="Models\SportBusiness.cs" />
+    <Compile Include="Models\TourBusiness.cs" />
+    <Compile Include="Models\TournamentBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\CommandProvider.cs" />
+    <Compile Include="Providers\ICommandProvider.cs" />
+    <Compile Include="Providers\IMatchProvider.cs" />
+    <Compile Include="Providers\INavigationProvider.cs" />
+    <Compile Include="Providers\IRateProvider.cs" />
+    <Compile Include="Providers\ITournamentProvider.cs" />
+    <Compile Include="Providers\MatchProvider.cs" />
+    <Compile Include="Providers\ModuleProvider.cs" />
+    <Compile Include="Providers\NavigationProvider.cs" />
+    <Compile Include="Providers\RateProvider.cs" />
+    <Compile Include="Providers\RatesListProvider.cs" />
+    <Compile Include="Providers\TournamentProvider.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserException.cs" />
     <Compile Include="UserRegister.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{ef4f7f04-9811-4980-bf9e-598ba446e881}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Data\Data.csproj">
+      <Project>{dbac81e9-a6fc-453e-ac33-108155d4e6eb}</Project>
+      <Name>Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

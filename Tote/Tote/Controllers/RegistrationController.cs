@@ -13,8 +13,8 @@ namespace Tote.Controllers
 
     public class RegistrationController : Controller
     {        
-        List<Sport> sports = new List<Sport>() { new Sport() { Id = 1, Name = "Football" },
-        new Sport() { Id = 2, Name = "Hockey" }, new Sport() { Id = 3, Name = "Basketball" }};
+        List<SportViewModel> sports = new List<SportViewModel>() { new SportViewModel() { SportId = 1, Name = "Football" },
+        new SportViewModel() { SportId = 2, Name = "Hockey" }, new SportViewModel() { SportId = 3, Name = "Basketball" }};
 
         private readonly IMessage message;
         //private string _message;
@@ -25,9 +25,12 @@ namespace Tote.Controllers
         {
             this.message = message;            
         }
-                
+        public RegistrationController()
+        {
+            
+        }
 
-        public ActionResult Index()
+        public ActionResult Startup()
         {
             return View(sports);
         }
