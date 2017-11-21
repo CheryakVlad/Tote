@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using AutoMapper;
 using ToteBiz.Business.Models;
 using Common.Validation;
 using Data.Repository;
-using Data.Models;
+using Common.Models;
 using System;
+using System.Linq;
 
 namespace ToteBiz.Business.Providers
 {
@@ -22,7 +22,7 @@ namespace ToteBiz.Business.Providers
            
         }
 
-        public SportBusiness GetSport(int? id)
+        public Sport GetSport(int? id)
         {
             if (id == null)
                 throw new ValidationException("Not set sports id", "");
@@ -30,22 +30,18 @@ namespace ToteBiz.Business.Providers
             if (sport == null)
                 throw new ValidationException("Not found sport", "");
 
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Sport, SportBusiness>()).CreateMapper();
-
-            var model = mapper.Map<Sport, SportBusiness>(sport);
-            return model;
+            
+            return sport;
             
         }
 
-        public IEnumerable<SportBusiness> GetSports()
-        {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Sport, SportBusiness>()).CreateMapper();
-            var model = mapper.Map<IEnumerable<Sport>, List<SportBusiness>>(db.Sports.GetAll());
-            return model;
+        public IEnumerable<Sport> GetSports()
+        {            
+            return db.Sports.GetAll();
             
         }
 
-        public TournamentBusiness GetTournament(int? id)
+        public Tournament GetTournament(int? id)
         {
             if (id == null)
                 throw new ValidationException("Not set Tournament id", "");
@@ -53,80 +49,190 @@ namespace ToteBiz.Business.Providers
             if (tournament == null)
                 throw new ValidationException("Not found Tournament", "");
 
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Tournament, TournamentBusiness>()).CreateMapper();
-
-            var model = mapper.Map<Tournament, TournamentBusiness>(tournament);
-            return model;
+            return tournament;
         }
 
-        public IEnumerable<TournamentBusiness> GetTournamentes()
-        {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Tournament, TournamentBusiness>()).CreateMapper();
-
-            var model = mapper.Map<IEnumerable<Tournament>, List<TournamentBusiness>>(db.Tournaments.GetAll());
-            return model;
+        public IEnumerable<Tournament> GetTournamentes()
+        {           
+            return db.Tournaments.GetAll();
         }
 
-        public MatchBusiness GetMatch(int? id)
+        public Match GetMatch(int? id)
         {
             if (id == null)
                 throw new ValidationException("Not set Match id", "");
             var match = db.Matches.Get(id.Value);
             if (match == null)
                 throw new ValidationException("Not found Match", "");
-
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Match, MatchBusiness>()).CreateMapper();
-
-            var model = mapper.Map<Match, MatchBusiness>(match);
-            return model;
+            
+            return match;
         }
 
-        public IEnumerable<MatchBusiness> GetMatches()
-        {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Match, MatchBusiness>()).CreateMapper();
-            var model = mapper.Map<IEnumerable<Match>, List<MatchBusiness>>(db.Matches.GetAll());
-            return model;
+        public IEnumerable<Match> GetMatches()
+        {            
+            return db.Matches.GetAll();
         }
 
-        public RateBusiness GetRate(int? id)
+        public Rate GetRate(int? id)
         {
             if (id == null)
                 throw new ValidationException("Not set rate id", "");
             var rate = db.Rates.Get(id.Value);
             if (rate == null)
-                throw new ValidationException("Not found rate", "");
-
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Rate, RateBusiness>()).CreateMapper();
-
-            var model = mapper.Map<Rate, RateBusiness>(rate);
-            return model;
+                throw new ValidationException("Not found rate", "");            
+            return rate;
         }
 
-        public IEnumerable<RateBusiness> GetRates()
+        public IList<RatesListProvider> GetRate(int? sportId,int? tournamentId)
+        {          
+           var rates = db.Rates.GetAll();
+
+           
+            var sports = db.Sports.GetAll();
+
+            
+            var commands = db.Commands.GetAll();
+
+            var tournamentes = db.Tournaments.GetAll();
+
+            
+            var matches = db.Matches.GetAll();
+
+            List<RatesListProvider> ratesList = new List<RatesListProvider>();
+
+            if (sportId == null)
+            {
+                var models = from r in rates
+                             join m in matches on r.MatchId equals m.MatchId
+                             join cH in commands on m.CommandIdHome equals cH.CommandId
+                             join cG in commands on m.CommandIdGuest equals cG.CommandId
+                             join s in sports on cH.SporttId equals s.SportId
+                             select new
+                             {
+                                 RateId = r.RateId,
+                                 MatchId = r.MatchId,
+                                 WinCommandHome = r.WinCommandHome,
+                                 WinCommandGuest = r.WinCommandGuest,
+                                 Draw = r.Draw,
+                                 CommandHome = cH.Name,
+                                 CommandGuest = cG.Name,
+                                 Date = m.Date
+                             };
+
+                foreach (var model in models)
+                {
+                    ratesList.Add(new RatesListProvider
+                    {
+                        RateId = model.RateId,
+                        MatchId = model.MatchId,
+                        WinCommandGuest = model.WinCommandGuest,
+                        WinCommandHome = model.WinCommandHome,
+                        Date = model.Date,
+                        Draw = model.Draw,
+                        CommandHome = model.CommandHome,
+                        CommandGuest = model.CommandGuest
+                    });
+                }
+            }
+            else
+            {
+                if (tournamentId == null)
+                {
+                    var models = from r in rates
+                                 join m in matches on r.MatchId equals m.MatchId
+                                 join cH in commands on m.CommandIdHome equals cH.CommandId
+                                 join cG in commands on m.CommandIdGuest equals cG.CommandId
+                                 join s in sports on cH.SporttId equals s.SportId
+                                 where s.SportId == sportId
+                                 select new
+                                 {
+                                     RateId = r.RateId,
+                                     MatchId = r.MatchId,
+                                     WinCommandHome = r.WinCommandHome,
+                                     WinCommandGuest = r.WinCommandGuest,
+                                     Draw = r.Draw,
+                                     CommandHome = cH.Name,
+                                     CommandGuest = cG.Name,
+                                     Date = m.Date
+                                 };
+
+                    foreach (var model in models)
+                    {
+                        ratesList.Add(new RatesListProvider
+                        {
+                            RateId = model.RateId,
+                            MatchId = model.MatchId,
+                            WinCommandGuest = model.WinCommandGuest,
+                            WinCommandHome = model.WinCommandHome,
+                            Date = model.Date,
+                            Draw = model.Draw,
+                            CommandHome = model.CommandHome,
+                            CommandGuest = model.CommandGuest
+                        });
+                    }
+                }
+                else
+                {          
+                    var models = from r in rates
+                                 join m in matches on r.MatchId equals m.MatchId
+                                 join cH in commands on m.CommandIdHome equals cH.CommandId
+                                 join cG in commands on m.CommandIdGuest equals cG.CommandId
+                                 join s in sports on cH.SporttId equals s.SportId
+                                 join t in tournamentes on m.TournamentId equals t.TournamentId
+                                 where t.TournamentId == tournamentId && s.SportId == sportId
+                                 select new
+                                 {
+                                     RateId = r.RateId,
+                                     MatchId = r.MatchId,
+                                     WinCommandHome = r.WinCommandHome,
+                                     WinCommandGuest = r.WinCommandGuest,
+                                     Draw = r.Draw,
+                                     CommandHome = cH.Name,
+                                     CommandGuest = cG.Name,
+                                     Date = m.Date
+                                 };
+
+                    foreach (var model in models)
+                    {
+                        ratesList.Add(new RatesListProvider
+                        {
+                            RateId = model.RateId,
+                            MatchId = model.MatchId,
+                            WinCommandGuest = model.WinCommandGuest,
+                            WinCommandHome = model.WinCommandHome,
+                            Date = model.Date,
+                            Draw = model.Draw,
+                            CommandHome = model.CommandHome,
+                            CommandGuest = model.CommandGuest
+                        });
+                    }
+                }
+            }
+
+
+            return ratesList;
+        }
+
+        public IEnumerable<Rate> GetRates()
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Rate, RateBusiness>()).CreateMapper();
-            var model = mapper.Map<IEnumerable<Rate>, List<RateBusiness>>(db.Rates.GetAll());
+            var model = db.Rates.GetAll();
             return model;
         }
 
-        public CommandBusiness GetCommand(int? id)
+        public Command GetCommand(int? id)
         {
             if (id == null)
                 throw new ValidationException("Not set command id", "");
             var command = db.Commands.Get(id.Value);
             if (command == null)
                 throw new ValidationException("Not found command", "");
-
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Command, CommandBusiness>()).CreateMapper();
-
-            var model = mapper.Map<Command, CommandBusiness>(command);
-            return model;
+           
+            return command;
         }
 
-        public IEnumerable<CommandBusiness> GetCommands()
+        public IEnumerable<Command> GetCommands()
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Command, CommandBusiness>()).CreateMapper();
-            var model = mapper.Map<IEnumerable<Command>, List<CommandBusiness>>(db.Commands.GetAll());
+            var model = db.Commands.GetAll();
             return model;
         }
 

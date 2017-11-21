@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
-using AutoMapper;
+
 using ToteBiz.Business.Models;
 using Common.Validation;
 using Data.Repository;
-using Data.Models;
+using Common.Models;
+using System;
 
 namespace ToteBiz.Business.Providers
 {
@@ -21,7 +22,7 @@ namespace ToteBiz.Business.Providers
             
         }
 
-        public RateBusiness GetRate(int? id)
+        public Rate GetRate(int? id)
         {
             if (id == null)
                 throw new ValidationException("Not set rate id", "");
@@ -29,18 +30,19 @@ namespace ToteBiz.Business.Providers
             if (rate == null)
                 throw new ValidationException("Not found rate", "");
 
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Rate, RateBusiness>()).CreateMapper();
-
-            var model = mapper.Map<Rate, RateBusiness>(rate);
-            return model;
+            
+            return rate;
         }
 
-        public IEnumerable<RateBusiness> GetRates()
+        public IEnumerable<Rate> GetRates()
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Rate, RateBusiness>()).CreateMapper();
+            
+            return db.Rates.GetAll();
+        }
 
-            var model = mapper.Map<IEnumerable<Rate>, List<RateBusiness>>(db.Rates.GetAll());
-            return model;
+        public IList<RatesListProvider> GetRate(int? sportId, int? tournamentId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

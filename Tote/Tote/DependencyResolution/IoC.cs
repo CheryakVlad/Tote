@@ -17,19 +17,15 @@
 
 
 namespace Tote.DependencyResolution {
-    using Interfaces;
-    using Models;
     using StructureMap;
-
+    using Dependencies.Registries;
+	
     public static class IoC {
         public static IContainer Initialize() {
-            ObjectFactory.Initialize(x =>
-            {
-                x.For<IMessage>().Use<Message>();
+            return new Container(c => {
+                c.AddRegistry<DefaultRegistry>();
+                c.AddRegistry<CommonRegistry>();
             });
-
-            return ObjectFactory.Container;
-            //return new Container(c => c.AddRegistry<DefaultRegistry>());
         }
     }
 }

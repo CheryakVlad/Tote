@@ -2,8 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using ToteBiz.Business.Providers;
-using ToteBiz.Business.Models;
-using AutoMapper;
+using Common.Models;
 using Tote.Models;
 
 namespace Tote.Controllers
@@ -16,33 +15,31 @@ namespace Tote.Controllers
             this.navigationProvider = navigationProvider;
         }
         
-        // GET: Sport
+       
         public ActionResult Index()
         {
-            IEnumerable<SportBusiness> sport = navigationProvider.GetSports();            
-            var sports = Mapper.Map<IEnumerable<SportBusiness>, List<SportViewModel>>(sport);
+            IEnumerable<Sport> sports = navigationProvider.GetSports();            
+            
             return View(sports);           
         }
         public ActionResult Sport()
         {
-            IEnumerable<SportBusiness> sport = navigationProvider.GetSports();
-            var sports = Mapper.Map<IEnumerable<SportBusiness>, List<SportViewModel>>(sport);
-            return View(sports);
+            IEnumerable<Sport> sport = navigationProvider.GetSports();
+            
+            return View(sport);
         }
 
         public ActionResult Rate(int id)
         {
-            IEnumerable<RateBusiness> rate = navigationProvider.GetRates();
-            var rates = Mapper.Map<IEnumerable<RateBusiness>, List<RateViewModel>>(rate);
+            IEnumerable<Rate> rates = navigationProvider.GetRates();
+            
+            IEnumerable<Sport> sports = navigationProvider.GetSports();            
 
-            IEnumerable<SportBusiness> sport = navigationProvider.GetSports();
-            var sports = Mapper.Map<IEnumerable<SportBusiness>, List<SportViewModel>>(sport);
+            IEnumerable<Command> commands = navigationProvider.GetCommands();
 
-            IEnumerable<CommandBusiness> command = navigationProvider.GetCommands();
-            var commands = Mapper.Map<IEnumerable<CommandBusiness>, List<CommandViewModel>>(command);
+            IEnumerable<Match> matches = navigationProvider.GetMatches();
 
-            IEnumerable<MatchBusiness> match = navigationProvider.GetMatches();
-            var matches = Mapper.Map<IEnumerable<MatchBusiness>, List<MatchViewModel>>(match);
+            
 
             RateListViewModel ratesList = new RateListViewModel();
 
@@ -83,151 +80,23 @@ namespace Tote.Controllers
         public ViewResult List(int? SportId,int? TournamentId=null)
         {
             
-            IEnumerable<RateBusiness> rate = navigationProvider.GetRates();
-            var rates = Mapper.Map<IEnumerable<RateBusiness>, List<RateViewModel>>(rate);
-
-            IEnumerable<SportBusiness> sport = navigationProvider.GetSports();
-            var sports = Mapper.Map<IEnumerable<SportBusiness>, List<SportViewModel>>(sport);
-
-            IEnumerable<CommandBusiness> command = navigationProvider.GetCommands();
-            var commands = Mapper.Map<IEnumerable<CommandBusiness>, List<CommandViewModel>>(command);
-
-            IEnumerable<MatchBusiness> match = navigationProvider.GetMatches();
-            var matches = Mapper.Map<IEnumerable<MatchBusiness>, List<MatchViewModel>>(match);
+            IList<RatesListProvider> rates = navigationProvider.GetRate(SportId, TournamentId);         
             
-            List<RateListViewModel> ratesList = new List<RateListViewModel>();
-
-            if (SportId == null)
-            {
-                var models = from r in rates
-                             join m in matches on r.MatchId equals m.MatchId
-                             join cH in commands on m.CommandIdHome equals cH.CommandId
-                             join cG in commands on m.CommandIdGuest equals cG.CommandId
-                             join s in sports on cH.SporttId equals s.SportId
-                             select new
-                             {
-                                 RateId = r.RateId,
-                                 MatchId = r.MatchId,
-                                 WinCommandHome = r.WinCommandHome,
-                                 WinCommandGuest = r.WinCommandGuest,
-                                 Draw = r.Draw,
-                                 CommandHome = cH.Name,
-                                 CommandGuest = cG.Name,
-                                 Date = m.Date
-                             };
-
-                foreach (var model in models)
-                {
-                    ratesList.Add(new RateListViewModel
-                    {
-                        RateId = model.RateId,
-                        MatchId = model.MatchId,
-                        WinCommandGuest = model.WinCommandGuest,
-                        WinCommandHome = model.WinCommandHome,
-                        Date = model.Date,
-                        Draw = model.Draw,
-                        CommandHome = model.CommandHome,
-                        CommandGuest = model.CommandGuest
-                    });
-                }
-            }
-            else
-            {
-                if (TournamentId == null)
-                {
-                    var models = from r in rates
-                                 join m in matches on r.MatchId equals m.MatchId
-                                 join cH in commands on m.CommandIdHome equals cH.CommandId
-                                 join cG in commands on m.CommandIdGuest equals cG.CommandId
-                                 join s in sports on cH.SporttId equals s.SportId
-                                 where s.SportId == SportId
-                                 select new
-                                 {
-                                     RateId = r.RateId,
-                                     MatchId = r.MatchId,
-                                     WinCommandHome = r.WinCommandHome,
-                                     WinCommandGuest = r.WinCommandGuest,
-                                     Draw = r.Draw,
-                                     CommandHome = cH.Name,
-                                     CommandGuest = cG.Name,
-                                     Date = m.Date
-                                 };
-
-                    foreach (var model in models)
-                    {
-                        ratesList.Add(new RateListViewModel
-                        {
-                            RateId = model.RateId,
-                            MatchId = model.MatchId,
-                            WinCommandGuest = model.WinCommandGuest,
-                            WinCommandHome = model.WinCommandHome,
-                            Date = model.Date,
-                            Draw = model.Draw,
-                            CommandHome = model.CommandHome,
-                            CommandGuest = model.CommandGuest
-                        });
-                    }
-                }
-                else
-                {
-                    IEnumerable<TournamentBusiness> tournament = navigationProvider.GetTournamentes();
-                    var tournamentes = Mapper.Map<IEnumerable<TournamentBusiness>, List<TournamentViewModel>>(tournament);
-
-                    var models = from r in rates
-                                 join m in matches on r.MatchId equals m.MatchId
-                                 join cH in commands on m.CommandIdHome equals cH.CommandId
-                                 join cG in commands on m.CommandIdGuest equals cG.CommandId
-                                 join s in sports on cH.SporttId equals s.SportId
-                                 join t in tournamentes on m.TournamentId equals t.TournamentId
-                                 where t.TournamentId == TournamentId && s.SportId==SportId
-                                 select new
-                                 {
-                                     RateId = r.RateId,
-                                     MatchId = r.MatchId,
-                                     WinCommandHome = r.WinCommandHome,
-                                     WinCommandGuest = r.WinCommandGuest,
-                                     Draw = r.Draw,
-                                     CommandHome = cH.Name,
-                                     CommandGuest = cG.Name,
-                                     Date = m.Date
-                                 };
-
-                    foreach (var model in models)
-                    {
-                        ratesList.Add(new RateListViewModel
-                        {
-                            RateId = model.RateId,
-                            MatchId = model.MatchId,
-                            WinCommandGuest = model.WinCommandGuest,
-                            WinCommandHome = model.WinCommandHome,
-                            Date = model.Date,
-                            Draw = model.Draw,
-                            CommandHome = model.CommandHome,
-                            CommandGuest = model.CommandGuest
-                        });
-                    }
-                }
-            }
-           
-
-           
-            return View(ratesList);
+            return View(rates);
         }
 
         public PartialViewResult Menu(int category=0)
         {
             ViewBag.SelectedCategory = category;
 
-            IEnumerable<SportBusiness> sport = navigationProvider.GetSports();
-            var sports = Mapper.Map<IEnumerable<SportBusiness>, List<SportViewModel>>(sport); 
+            IEnumerable<Sport> sports = navigationProvider.GetSports();            
             
             return PartialView(sports);
         }
 
         public PartialViewResult ChildTournament(int id=0)
         {
-            IEnumerable<TournamentBusiness> tournament = navigationProvider.GetTournamentes();
-            var tournamentes = Mapper.Map<IEnumerable<TournamentBusiness>, List<TournamentViewModel>>(tournament);
+            IEnumerable<Tournament> tournamentes = navigationProvider.GetTournamentes();           
 
             var model = from t in tournamentes
                         where t.SportId == id

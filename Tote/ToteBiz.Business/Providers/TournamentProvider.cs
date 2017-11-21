@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
-using AutoMapper;
 using ToteBiz.Business.Models;
 using Common.Validation;
 using Data.Repository;
-using Data.Models;
-
+using Common.Models;
 namespace ToteBiz.Business.Providers
 {
     class TournamentProvider : ITournamentProvider
@@ -21,7 +19,7 @@ namespace ToteBiz.Business.Providers
 
         }
 
-        public TournamentBusiness GetTournament(int? id)
+        public Tournament GetTournament(int? id)
         {
             if (id == null)
                 throw new ValidationException("Not set Tournament id", "");
@@ -29,18 +27,14 @@ namespace ToteBiz.Business.Providers
             if (tournament == null)
                 throw new ValidationException("Not found Tournament", "");
 
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Tournament, TournamentBusiness>()).CreateMapper();
-
-            var model = mapper.Map<Tournament, TournamentBusiness>(tournament);
-            return model;
+            
+            return tournament;
         }
 
-        public IEnumerable<TournamentBusiness> GetTournamentes()
+        public IEnumerable<Tournament> GetTournamentes()
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Tournament, TournamentBusiness>()).CreateMapper();
-
-            var model = mapper.Map<IEnumerable<Tournament>, List<TournamentBusiness>>(db.Tournaments.GetAll());
-            return model;
+            
+            return db.Tournaments.GetAll();
         }
 
         

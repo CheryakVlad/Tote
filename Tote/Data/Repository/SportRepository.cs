@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Data.Models;
+using Common.Models;
 using Data.Context;
 
 namespace Data.Repository

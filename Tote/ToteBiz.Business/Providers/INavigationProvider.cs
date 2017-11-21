@@ -1,13 +1,14 @@
 ﻿
 using System.Collections.Generic;
 using ToteBiz.Business.Models;
+using Common.Models;
 
 namespace ToteBiz.Business.Providers
 {
     public interface INavigationProvider:ITournamentProvider, IMatchProvider, IRateProvider,ICommandProvider
     {        
-        SportBusiness GetSport(int? id);
-        IEnumerable<SportBusiness> GetSports();
+        Sport GetSport(int? id);
+        IEnumerable<Sport> GetSports();
         void Dispose();
 
         /*TournamentBusiness GetTournament(int? id);

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Data.Models;
+using Common.Models;
 using Data.Context;
 
 namespace Data.Repository

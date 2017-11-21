@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using ToteBiz.Business.Models;
+using Common.Models;
 
 namespace ToteBiz.Business.Providers
 {
     public interface ICommandProvider
     {
-        CommandBusiness GetCommand(int? id);
-        IEnumerable<CommandBusiness> GetCommands();
+        Command GetCommand(int? id);
+        IEnumerable<Command> GetCommands();
         //void Dispose();
     }
 }

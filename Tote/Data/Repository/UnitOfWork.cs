@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Data.Context;
-using Data.Models;
+using Common.Models;
 
 namespace Data.Repository
 {

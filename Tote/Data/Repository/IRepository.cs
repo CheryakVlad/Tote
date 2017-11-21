@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Data.Models;
+using Common.Models;
 
 
 namespace Data.Repository

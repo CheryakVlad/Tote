@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using AutoMapper;
+using Common.Models;
 using ToteBiz.Business.Models;
 using Common.Validation;
 using Data.Repository;
-using Data.Models;
 
 namespace ToteBiz.Business.Providers
 {
@@ -21,26 +20,18 @@ namespace ToteBiz.Business.Providers
 
         }
 
-        public CommandBusiness GetCommand(int? id)
+        public Command GetCommand(int? id)
         {
             if (id == null)
                 throw new ValidationException("Not set command id", "");
-            var command = db.Commands.Get(id.Value);
-            if (command == null)
-                throw new ValidationException("Not found command", "");
-
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Command, CommandBusiness>()).CreateMapper();
-
-            var model = mapper.Map<Command, CommandBusiness>(command);
-            return model;
+            var command = db.Commands.Get(id.Value);            
+            return command;
         }
 
-        public IEnumerable<CommandBusiness> GetCommands()
+        public IEnumerable<Command> GetCommands()
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Command, CommandBusiness>()).CreateMapper();
-
-            var model = mapper.Map<IEnumerable<Command>, List<CommandBusiness>>(db.Commands.GetAll());
-            return model;
+           
+            return db.Commands.GetAll();
         }
     }
 }
